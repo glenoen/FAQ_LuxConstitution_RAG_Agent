@@ -1,0 +1,14 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX jolux: <http://data.legilux.public.lu/resource/ontology/jolux#>
+SELECT DISTINCT ?consolidationDocument ?consolidationTitle ?dateConsolidation WHERE {
+VALUES ?Act_1 { <http://data.legilux.public.lu/eli/etat/leg/constitution/1868/10/17/n1/jo> }
+?Act_1 rdf:type jolux:Act.
+?Act_1 jolux:dateEntryInForce ?DateEntryIntoForce_2;
+(jolux:isMemberOf/^jolux:isMemberOf) ?consolidationDocument.
+?consolidationDocument rdf:type jolux:Consolidation.
+FILTER(NOT EXISTS { ?consolidationDocument rdf:type jolux:Collection. })
+FILTER(NOT EXISTS { ?consolidationDocument rdf:type jolux:Code. })
+OPTIONAL { ?consolidationDocument (jolux:isRealizedBy/jolux:title) ?consolidationTitle. }
+?consolidationDocument jolux:publicationDate ?dateConsolidation.
+}
+ORDER BY DESC(?dateConsolidation)

@@ -1,0 +1,4 @@
+pandas
+SPARQLWrapper
+besser-agentic-framework
+lxml
